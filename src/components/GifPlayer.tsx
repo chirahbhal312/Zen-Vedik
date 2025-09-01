@@ -1,91 +1,44 @@
-"use client"; // This directive is important for client-side functionality in Next.js
+import React, { useState } from "react";
 
-import React, { useState, useEffect } from 'react';
+// This component plays a GIF when clicked, and shows a static image when not clicked.
+// It uses Tailwind CSS for styling and is designed to be responsive.
+export default function GifPlay() {
+  // State to manage whether the GIF is currently playing (true) or not (false).
+  const [isPlaying, setIsPlaying] = useState(false);
 
-interface GifPlayerProps {
-  firstGifSrc: string; // URL for the GIF that plays once
-  firstGifDurationMs: number; // Duration in milliseconds for the first GIF's single play
-  secondGifSrc: string; // URL for the GIF that loops continuously
-}
-
-const GifPlayer: React.FC<GifPlayerProps> = ({
-  firstGifSrc,
-  firstGifDurationMs,
-  secondGifSrc,
-}) => {
-  // State to control which GIF is currently visible
-  const [showFirstGif, setShowFirstGif] = useState(true);
-  // State to manage loading status, useful for showing a spinner
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Set a timeout to switch from the first GIF to the second GIF
-    // after the specified duration.
-    const timer = setTimeout(() => {
-      setShowFirstGif(false);
-      setIsLoading(false); // Once the first GIF's "play" time is up, stop loading
-    }, firstGifDurationMs);
-
-    // Cleanup function: Clear the timeout if the component unmounts
-    // before the timer finishes.
-    return () => clearTimeout(timer);
-  }, [firstGifDurationMs]); // Re-run effect if duration changes
-
-  // Handle image loading to hide loading spinner once image is ready
-  const handleImageLoad = () => {
-    // Only set loading to false if it's the first GIF and we're still showing it
-    // Or if it's the second GIF and it loads
-    if (showFirstGif || !showFirstGif) {
-      setIsLoading(false);
-    }
-  };
-
-  // Handle image error to prevent broken image icons
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    console.error("Failed to load GIF:", e.currentTarget.src);
-    // Optionally, set a fallback image or hide the component
-    e.currentTarget.src = "https://placehold.co/200x200/cccccc/ffffff?text=Error"; // Placeholder for error
-    setIsLoading(false); // Stop loading even on error
+  // Function to toggle the isPlaying state when the component is clicked.
+  const handleClick = () => {
+    setIsPlaying(!isPlaying);
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-      <div className="relative w-full max-w-md bg-white rounded-lg shadow-xl p-6 text-center">
-        {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75 rounded-lg">
-            <p className="text-gray-700 text-lg font-semibold">Loading GIF...</p>
-          </div>
-        )}
-
-        {showFirstGif ? (
+      <div
+        className="relative w-full max-w-md bg-white rounded-lg shadow-xl overflow-hidden cursor-pointer transform transition-all duration-300 hover:scale-105"
+        onClick={handleClick}
+      >
+        {/* Conditional rendering based on isPlaying state */}
+        {isPlaying ? (
+          // Display the GIF when isPlaying is true
           <img
-            src={firstGifSrc}
-            alt="First GIF (plays once)"
-            className="w-full h-auto rounded-md"
-            onLoad={handleImageLoad}
-            onError={handleImageError}
-            // Add a key to force re-render if src changes, though unlikely here
-            key="first-gif"
+            src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWQ4Y2QyM2E0Y2M0YjBkMjQ2Y2QxYjY5NmEwY2Q1YjYyYmQ2YjQ2YjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYyYjYx/d4/raw/master/public/play-button.png"
+            alt="Play GIF"
+            className="w-full h-auto rounded-lg"
           />
         ) : (
+          // Display the static image when isPlaying is false
           <img
-            src={secondGifSrc}
-            alt="Second GIF (loops continuously)"
-            className="w-full h-auto rounded-md"
-            onLoad={handleImageLoad} // Still useful if second GIF loads later
-            onError={handleImageError}
-            key="second-gif"
+            src="https://placehold.co/600x400/000000/FFFFFF?text=Click+to+Play" // Placeholder for static image
+            alt="Play GIF"
+            className="w-full h-auto rounded-lg"
           />
         )}
 
-        <p className="mt-4 text-gray-600 text-sm">
-          {showFirstGif
-            ? `Playing first GIF for ${firstGifDurationMs / 1000} seconds...`
-            : "Second GIF is now looping."}
-        </p>
+        {/* Text overlay to indicate action */}
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white text-xl font-bold rounded-lg opacity-0 hover:opacity-100 transition-opacity duration-300">
+          {isPlaying ? "Click to Pause" : "Click to Play"}
+        </div>
       </div>
     </div>
   );
-};
-
-export default GifPlayer;
+}

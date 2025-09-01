@@ -1,22 +1,20 @@
 @import "tailwindcss";
-/* @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Patrick+Hand+SC&family=Quicksand:wght@300;400;500;600;700&display=swap'); */
+@import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Patrick+Hand+SC&family=Quicksand:wght@300;400;500;600;700&display=swap");
 
-
-:root{
-  --background: #FCF3DC;
-  --foreground: #969C52;
+:root {
+  --background: #fcf3dc;
+  --foreground: #969c52;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-quicksand);
+  /* --font-sans: var(--font-quicksand);
   --font-mono: var(--font-patrick-hand-sc);
   --font-hand: var(--font-patrick-hand);
-  --font-hand-sc: var(--font-patrick-hand-sc);
+  --font-hand-sc: var(--font-patrick-hand-sc); */
 }
 
-
 body {
-  background: #FCF3DC;
-  font-family: 'Quicksand', sans-serif;
+  background: #fcf3dc;
+  font-family: "Quicksand", sans-serif;
   overflow-x: hidden;
 }
 
@@ -30,12 +28,18 @@ body {
   -ms-overflow-style: none; /* IE 10+ */
 }
 
-
 html {
   scroll-behavior: smooth;
 }
 
+h1,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Patrick Hand SC", cursive;
+}
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Patrick Hand SC';
+h2 {
+  font-family: "Patrick Hand", cursive;
 }
