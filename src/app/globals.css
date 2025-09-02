@@ -1,5 +1,9 @@
-@import "tailwindcss";
+/* @import "tailwindcss";
 @import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Patrick+Hand+SC&family=Quicksand:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Patrick+Hand:wght@300;400;500;600;700&display=swap"); */
+
+@import "tailwindcss";
+/* @import "tw-animate-css"; */
 
 :root {
   --background: #fcf3dc;
@@ -12,11 +16,17 @@
   --font-hand-sc: var(--font-patrick-hand-sc); */
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+
+
 body {
   background: #fcf3dc;
-  font-family: "Quicksand", sans-serif;
   overflow-x: hidden;
 }
+
 
 body::-webkit-scrollbar {
   display: none;
@@ -37,9 +47,9 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Patrick Hand SC", cursive;
+  font-family: var(--font-hand-sc), cursive;
 }
 
 h2 {
-  font-family: "Patrick Hand", cursive;
+  font-family: var(--font-hand), cursive;
 }

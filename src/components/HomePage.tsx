@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import HomePageContent from "./HomePageContent";
 import Homepagecontainer from "./HomePageContainer";
-import GifPlay from "./GifPlayer";
 
 export default function HomePageFadeBlur() {
   const [clicked, setClicked] = useState(false);

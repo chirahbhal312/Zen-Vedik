@@ -1,44 +1,64 @@
-"use client";
+"use client"
 
-import React, { useRef, useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import HomePageContent from "./HomePageContent";
-import ShopPageContent from "./ShopPageContent";
-import RelaxCornerPageContent from "./RelaxCornerPageContent";
-import Navbar from "./Navbar";
+import { useRef, useEffect, useState } from "react"
+import { motion } from "framer-motion"
+import HomePageContent from "./HomePageContent"
+import RelaxCornerPageContent from "./RelaxCornerPageContent"
+import Whiteboard from "./WhiteBoard"
+import Blog from "./BlogContent"
+import Navbar from "./Navbar"
 
 const HomepageContainer = () => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const [activeSection, setActiveSection] = useState("home");
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const [activeSection, setActiveSection] = useState("home")
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "relax", "shop"];
+      const ids = ["home", "relax", "whiteboard"]
+      const centerY = window.innerHeight / 2
 
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (
-            rect.top <= window.innerHeight / 2 &&
-            rect.bottom >= window.innerHeight / 2
-          ) {
-            setActiveSection(section);
-            break;
+      let closestId: string | null = null
+      let closestDist = Number.POSITIVE_INFINITY
+
+      for (const id of ids) {
+        const el = document.getElementById(id)
+        if (!el) continue
+        const rect = el.getBoundingClientRect()
+
+        const coversCenter = rect.top <= centerY && rect.bottom >= centerY
+
+        const mid = rect.top + rect.height / 2
+        const dist = Math.abs(mid - centerY)
+
+        if (coversCenter) {
+          if (0 < closestDist) {
+            closestDist = 0
+            closestId = id
           }
+        } else if (dist < closestDist) {
+          closestDist = dist
+          closestId = id
         }
       }
-    };
 
-    const scrollContainer = containerRef.current;
+      if (closestId) {
+        setActiveSection(closestId)
+      }
+    }
+
+    const scrollContainer = containerRef.current
     scrollContainer?.addEventListener("scroll", handleScroll, {
       passive: true,
-    });
+    })
+
+    handleScroll()
+    window.addEventListener("resize", handleScroll)
 
     return () => {
-      scrollContainer?.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+      scrollContainer?.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("resize", handleScroll)
+    }
+  }, [])
 
   return (
     <motion.div
@@ -52,24 +72,21 @@ const HomepageContainer = () => {
     >
       <Navbar activeSection={activeSection} />
 
-      <section id="home" className="h-screen snap-start pt-15">
+      <section id="home" className="h-screen snap-start pt-16">
         <HomePageContent />
       </section>
 
       <div style={{ height: "30vh" }} />
 
-      <section
-  id="relax"
-  className="min-h-screen snap-start pt-10 overflow-visible"
->
-  <RelaxCornerPageContent />
-</section>
-
+      <section id="relax" className="min-h-screen snap-start pt-10 overflow-visible">
+        <RelaxCornerPageContent />
+      </section>
 
       <div style={{ height: "30vh" }} />
 
-      <section id="shop" className="h-screen snap-start pt-10">
-        <ShopPageContent />
+      <section id="whiteboard" className="min-h-screen snap-start">
+        {/* <Whiteboard /> */}
+        <Blog/>
       </section>
 
       <style jsx>{`
@@ -82,7 +99,7 @@ const HomepageContainer = () => {
         }
       `}</style>
     </motion.div>
-  );
-};
+  )
+}
 
-export default HomepageContainer;
+export default HomepageContainer
