@@ -7,7 +7,7 @@ import meditatinggirl from "../../public/Heroimage.png";
 
 export default function HomePageContent() {
   return (
-    <div className="min-h-screen   mt-12.5 lg:mt-0 ">
+    <div className="min-h-screen  bg-[#fcf3dc]   mt-12.5 lg:mt-0 ">
       {/* Main Content */}
       <main className="flex flex-col md:flex-row items-center px-4 md:px-8 max-w-7xl mx-auto lg:gap-x-40">
         {/* Left: Text */}

@@ -8,7 +8,7 @@ export default function Page() {
   return (
     <>
     {/* <Navbar/> */}
-    <main className="h-[95vh] flex flex-col items-center justify-center text-center bg-background text-foreground px-4">
+    <main className="h-[95vh] flex flex-col items-center justify-center text-center bg-[#fcf3dc] text-[#7a553e] px-4">
         
       {/* Heading */}
       <h1 className="text-4xl md:text-6xl font-bold mb-8">Coming Soon</h1>

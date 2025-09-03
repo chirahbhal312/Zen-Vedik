@@ -55,7 +55,7 @@ const blogPosts = [
 
 export default function Blog() {
     return (
-      <main className="min-h-screen max-w-7xl mx-auto p-6 md:p-12 font-sans">
+      <main className="min-h-screen bg-[#fcf3dc]  max-w-7xl mx-auto p-6 md:p-12 font-sans">
         <h1 className="text-center text-4xl md:text-[5rem] lg:text-[4rem] font-medium mb-10 text-[#624029] tracking-wide">
           Soulful Reads
         </h1>

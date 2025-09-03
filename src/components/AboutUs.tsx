@@ -2,7 +2,7 @@ import TextReveal from "./Textreveal"
 
 export default function AboutUs() {
   return (
-    <main className="min-h-dvh bg-background text-foreground">
+    <main className="min-h-dvh bg-[#fcf3dc] text-[#7a553e]">
       <section className="mx-auto max-w-4xl px-6 py-16 md:py-24">
         <header className="text-center space-y-4 md:space-y-6">
           <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-balance">Welcome to Zen Vedik</h1>

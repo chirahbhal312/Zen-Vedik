@@ -64,7 +64,7 @@ const HomepageContainer = () => {
   return (
     <motion.div
       ref={containerRef}
-      className="h-screen overflow-y-scroll snap-y snap-mandatory hide-scrollbar scroll-smooth"
+      className="h-screen  bg-[#fcf3dc]  overflow-y-scroll snap-y snap-mandatory hide-scrollbar scroll-smooth"
       style={{
         WebkitOverflowScrolling: "touch",
         scrollbarWidth: "none",
