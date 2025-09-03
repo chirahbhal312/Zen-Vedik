@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 // import cocoon from "../../public/cocoon.png" // This import is not used in this component
 import meditatinggirl from "../../public/Heroimage.png";
 
@@ -25,9 +26,11 @@ export default function HomePageContent() {
  
     Find balance, embrace serenity,
   </p>
+  <Link href="/underdev">
   <button className="mt-4 bg-[#d7e0a7] text-[#5a6b2c] px-6 py-2 rounded-full shadow-[3px_5px_#8a8d6b] hover:bg-[#c9d49a] transition-colors text-base font-bold md:px-8 md:py-3 md:text-lg">
   Start Zen Experience
 </button>
+</Link>
 
 </div>
 

@@ -6,6 +6,7 @@ import HomePageFadeBlur from "@/components/HomePage"; // Assuming this renders H
 import Navbar from "@/components/Navbar";
 import FlippingCard from "@/components/FlippingCard";
 import Preloader from "@/components/Preloader";
+import CursorFollower from "@/components/CursorFollower";
 import HomepageContainer from "@/components/HomePageContainer";
 
 export default function Page() {
@@ -27,7 +28,9 @@ export default function Page() {
             transition={{ duration: 1.5, ease: [0.2, 0, 0, 1] }}
             className="w-full h-full"
           >
-                        <HomePageFadeBlur/>
+            
+            <CursorFollower/>
+            <HomePageFadeBlur/>
           </motion.div>
         )}
       </AnimatePresence>

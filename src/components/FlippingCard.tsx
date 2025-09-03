@@ -16,6 +16,8 @@ interface FlippingCardProps {
   heading?: string;
   subheading?: string;
   description?: string;
+  buttonText?: string;
+  buttonUrl?: string;
 }
 
 export default function FlippingCard({
@@ -25,9 +27,10 @@ export default function FlippingCard({
   heading = "ZenSound Lounge",
   subheading = "Feeling overwhelmed?",
   description = "Escape into calming tunes, nature's whispers, or gentle",
+  buttonText = "Learn More",
+  buttonUrl = "#",
 }: FlippingCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
-  const [backContent, setBackContent] = useState("Edit back...");
 
   return (
     <div
@@ -106,52 +109,47 @@ export default function FlippingCard({
           </div>
 
           {/* Subheading */}
-          <p
-            className={patrickHandSC.className}
-            style={{
-              fontSize: 36,
-              color: "#FCF3DC", // fixed
-              lineHeight: 0.8,
-              fontWeight: 500,
-              letterSpacing: "1px",
-              textAlign: "left",
-            }}
-          >
-            {subheading}
-          </p>
+          {/* Subheading */}
+<p
+  className={patrickHandSC.className}
+  style={{
+    fontSize: 36,
+    color: "#FCF3DC",
+    lineHeight: 0.8,       // ✅ better readability for multi-line
+    fontWeight: 500,
+    textAlign: "left",
+    wordBreak: "break-word", // ✅ ensures long words wrap too
+    whiteSpace: "normal",    // ✅ allows line breaks
+  }}
+>
+  {subheading}
+</p>
+
 
           {/* Description */}
-          <p
-            style={{
-              fontSize: 15,
-              marginTop: "15px",
-              marginBottom: "15px",
-              lineHeight: 1.25,
-              color: "#FCF3DC", // fixed
-              fontWeight: 400,
-              width: "100%",
-              textAlign: "left",
-              letterSpacing: "1px",
-            }}
-          >
-            {description}
-          </p>
+        {/* Description */}
+{/* Description */}
+<p
+  style={{
+    fontSize: 15,
+    marginTop: "10px",
+    lineHeight: 1.4,
+    color: "#FCF3DC",
+    fontWeight: 400,
+    width: "100%",
+    textAlign: "left",
+    letterSpacing: "0.5px",
+    overflow: "hidden",              // ✅ hide extra content
+    textOverflow: "ellipsis",        // ✅ add "…" at cutoff
+    display: "-webkit-box",          // ✅ flex-like for text
+    WebkitBoxOrient: "vertical",
+    WebkitLineClamp: 3,              // ✅ allow up to 3 lines
+  }}
+>
+  {description}
+</p>
 
-          {/* Read More */}
-          {/* <div 
-          style={{ marginTop: 20, marginBottom: 0, width: "100%" }}>
-            <span
-              style={{
-                color: "#FCF3DC", // fixed
-                fontWeight: 300,
-                fontSize: 16,
-                float: "right",
-                cursor: "pointer",
-              }}
-            >
-              Read More &gt;
-            </span>
-          </div> */}
+
         </div>
 
         {/* BACK SIDE */}
@@ -160,8 +158,8 @@ export default function FlippingCard({
             position: "absolute",
             width: "100%",
             height: "100%",
-            background: "#fab005", // fixed
-            color: "#2d2d2d", // fixed
+            background: frontBgColor, // same as front
+            color: "#FCF3DC",
             borderRadius: 18,
             backfaceVisibility: "hidden",
             boxShadow: "0 4px 24px rgba(0,0,0,0.16)",
@@ -171,62 +169,80 @@ export default function FlippingCard({
             alignItems: "center",
             justifyContent: "center",
             padding: 24,
+            textAlign: "center",
           }}
         >
-          <textarea
-            value={backContent}
-            onChange={(e) => setBackContent(e.target.value)}
+          <h2
+            className={patrickHandSC.className}
             style={{
-              width: "90%",
-              height: "140px",
-              fontSize: "18px",
-              border: "none",
-              borderRadius: 8,
-              padding: 8,
-              resize: "none",
-              color: "#2d2d2d",
-            }}
-          />
-          <span
-            style={{
-              marginTop: 20,
-              fontSize: 15,
-              opacity: 0.8,
-              color: "#2d2d2d",
+              fontSize: 28,
+              fontWeight: 600,
+              marginBottom: "15px",
+              letterSpacing: "1px",
             }}
           >
-            Click to flip!
-          </span>
+            {heading}
+          </h2>
+
+          <p
+            style={{
+              fontSize: 16,
+              lineHeight: 1.5,
+              maxWidth: "90%",
+              margin: "0 auto 20px auto",
+              letterSpacing: "0.5px",
+            }}
+          >
+            {description}
+          </p>
+
+          {/* Button */}
+          <a
+            href={buttonUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              background: "#FCF3DC",
+              color: "#5A2E17",
+              padding: "10px 20px",
+              borderRadius: "999px",
+              fontWeight: "bold",
+              fontSize: 14,
+              textDecoration: "none",
+              boxShadow: "2px 4px rgba(0,0,0,0.2)",
+              transition: "background 0.3s",
+            }}
+            onClick={(e) => e.stopPropagation()} // prevent flipping
+          >
+            {buttonText}
+          </a>
         </div>
       </motion.div>
 
       {/* Responsive styles */}
       <style jsx>{`
-       .flipping-card-root {
-  width: min(304px, 21vw);    /* 338 * 0.9 ≈ 304 */
-  max-width: 21.6vw;          /* 24vw * 0.9 */
-  height: min(540px, 60vh);   /* 600 * 0.9 = 540 */
-  max-height: 60vh;           /* 60vh * 0.9 */
-}
+        .flipping-card-root {
+          width: min(304px, 21vw);
+          max-width: 21.6vw;
+          height: min(540px, 60vh);
+          max-height: 60vh;
+        }
 
-/* 📱 Mobile (up to 640px) */
-@media (max-width: 640px) {
-  .flipping-card-root {
-    min-width: min(320px, 90vw);
-    height: 500px;         /* smaller fixed height for mobile */
-    max-height: 75vh;
-  }
-}
+        @media (max-width: 640px) {
+          .flipping-card-root {
+            min-width: min(320px, 90vw);
+            height: 500px;
+            max-height: 75vh;
+          }
+        }
 
-/* 📱💻 Tablets (641px – 1024px) */
-@media (min-width: 641px) and (max-width: 1024px) {
-  .flipping-card-root {
-    min-width: min(360px, 80vw);
-    height: 560px;         /* larger for tablets */
-    max-height: 80vh;
-  }
-}
-
+        @media (min-width: 641px) and (max-width: 1024px) {
+          .flipping-card-root {
+            min-width: min(360px, 80vw);
+            height: 560px;
+            max-height: 80vh;
+          }
+        }
       `}</style>
     </div>
   );

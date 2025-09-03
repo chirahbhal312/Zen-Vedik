@@ -39,10 +39,7 @@ export default function WhiteboardStickyNotes() {
         aria-label="Whiteboard with sticky notes"
         className="w-full max-w-6xl rounded-2xl border-[20px] border-[#D3C5A1] shadow-md bg-[#FFF6E0]"        >
         <div className="px-6 py-5">
-          <h1 className="text-lg md:text-xl font-semibold text-neutral-800">Whiteboard</h1>
-          <p className="text-sm text-neutral-500 mt-1">
-            Quick ideas, reminders, and tasks
-          </p>
+        <h1 className="text-lg md:text-[3rem] font-medium text-neutral-800 text-center">Wall of Trust</h1>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6 p-6">

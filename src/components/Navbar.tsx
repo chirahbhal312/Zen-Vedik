@@ -118,8 +118,14 @@ const Navbar = ({ activeSection }: NavbarProps) => {
           <NavLink href="#relax" active={activeSection === "relax"}>
             Relax Corner
           </NavLink>
-          <NavLink href="#shop" active={activeSection === "shop"}>
-            Shop
+          <NavLink href="#reviews" active={activeSection === "reviews"}>
+            Reviews
+          </NavLink>
+          <NavLink href="#blogs" active={activeSection === "blogs"}>
+            Blogs
+          </NavLink>
+          <NavLink href="#contact-us" active={activeSection === "contact-us"}>
+            Contact Us
           </NavLink>
         </nav>
 
@@ -169,11 +175,25 @@ const Navbar = ({ activeSection }: NavbarProps) => {
                 Relax Corner
               </NavLink>
               <NavLink
-                href="#shop"
-                active={activeSection === "shop"}
+                href="#reviews"
+                active={activeSection === "reviews"}
                 onClick={toggleMobileMenu}
               >
-                Shop
+                Reviews
+              </NavLink>
+              <NavLink
+                href="#blogs"
+                active={activeSection === "blogs"}
+                onClick={toggleMobileMenu}
+              >
+                Blogs
+              </NavLink>
+              <NavLink
+                href="#contact-us"
+                active={activeSection === "contact-us"}
+                onClick={toggleMobileMenu}
+              >
+                Contact Us
               </NavLink>
             </nav>
           </motion.div>
