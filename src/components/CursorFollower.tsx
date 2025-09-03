@@ -5,7 +5,6 @@ import { motion, useMotionValue, useSpring, type SpringOptions } from "framer-mo
 
 export type CursorFollowerProps = {
   size?: number
-  color?: string
   opacity?: number
   className?: string
   springConfig?: Partial<SpringOptions>
@@ -17,9 +16,8 @@ export type CursorFollowerProps = {
 }
 
 export default function CursorFollower({
-  size = 70,
-  color = "#F9DFB8",
-  opacity = 1,
+  size = 60,
+  opacity = 0.85,
   className,
   springConfig,
   enableLabel = true,
@@ -28,7 +26,6 @@ export default function CursorFollower({
   labelOffsetY = 16,
   zIndex = 2147483647,
 }: CursorFollowerProps) {
-  // Detect if mobile
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -38,7 +35,6 @@ export default function CursorFollower({
     return () => window.removeEventListener("resize", checkScreen)
   }, [])
 
-  // Motion values (always initialized, hooks order safe)
   const x = useMotionValue(-100)
   const y = useMotionValue(-100)
 
@@ -73,7 +69,7 @@ export default function CursorFollower({
   }, [size])
 
   useEffect(() => {
-    if (isMobile) return // skip on mobile
+    if (isMobile) return
 
     const handleMove = (e: MouseEvent) => {
       const { w, h } = dimsRef.current
@@ -98,7 +94,6 @@ export default function CursorFollower({
     return () => window.removeEventListener("mousemove", handleMove)
   }, [x, y, enableLabel, isMobile])
 
-  // ✅ Conditionally render nothing on mobile
   if (isMobile) return null
 
   return (
@@ -117,7 +112,10 @@ export default function CursorFollower({
         minWidth: size,
         minHeight: size,
         borderRadius: label ? 9999 : "50%",
-        backgroundColor: color,
+        backdropFilter: "blur(10px)",
+        backgroundColor: "rgba(255, 255, 255, 0.15)", // frosted glass
+        border: "1px solid rgba(255, 255, 255, 0.3)",
+        boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
         opacity,
         display: "flex",
         alignItems: "center",
@@ -133,7 +131,10 @@ export default function CursorFollower({
       }}
     >
       {enableLabel && label ? (
-        <span className={labelClassName} style={{ fontSize: 15, fontWeight: 500, color: "#5A2E17" }}>
+        <span
+          className={labelClassName}
+          style={{ fontSize: 15, fontWeight: 500, color: "#FFFFFF" }}
+        >
           {label}
         </span>
       ) : null}
